@@ -1,0 +1,3 @@
+INDEX VERSION 1.131
+C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4113864383.index
+\MybtisTest\src\main\java
