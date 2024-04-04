@@ -1,5 +1,7 @@
 package kr.com.ezen.persistence;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,17 @@ public class MapperTests {
 		MemberVO vo = 
 				memberMapper.selectOneMember(18);
 		log.info(">>>>>> "+ vo);
+	}
+	
+	
+	@Test
+	public void testAllList() {
+//		List<MemberVO> list = memberMapper.selectAllList();
+//		for(MemberVO vo : list)
+//			log.info(vo);
+		
+		memberMapper.selectAllList()
+				.forEach(vo-> log.info(vo));
 	}
 	
 	
