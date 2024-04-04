@@ -6,7 +6,7 @@
   
   <insert id="insertMember">
 	  insert into member(id, name, phone, address)
-	  values (#{id},#{name},#{phone},#{address})
+	  values (#{id},#{name},#{phone},#{address}) 
   </insert>
   
   <update id="updateMember">
@@ -20,5 +20,18 @@
   <delete id="deleteMember">
   	delete from member where id = #{id}
   </delete>
+  
+  
+  <select id="selectMemberOne"  resultType="kr.com.ezen.MemberVO">
+    SELECT * FROM member WHERE ID = #{id}
+  </select>
+
+  <select id="selectMemberList"  resultType="kr.com.ezen.MemberVO">
+    SELECT * FROM member order by id desc
+  </select>
+  
+  
+  
+  
   
 </mapper>
