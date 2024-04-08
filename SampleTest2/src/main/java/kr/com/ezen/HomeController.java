@@ -1,5 +1,7 @@
 package kr.com.ezen;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -33,7 +35,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		
+		return "home";  // /WEB-INF/views/home.jsp
 	}
 	
 }

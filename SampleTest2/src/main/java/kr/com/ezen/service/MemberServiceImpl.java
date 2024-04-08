@@ -24,6 +24,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public void insertMember(MemberVO vo) {
+		log.info("===========> " + vo);
 		memberMapper.insertMember(vo);
 		
 	}
