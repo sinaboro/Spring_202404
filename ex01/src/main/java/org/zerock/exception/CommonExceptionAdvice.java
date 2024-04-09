@@ -1,5 +1,7 @@
 package org.zerock.exception;
 
+import java.net.BindException;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,6 +12,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CommonExceptionAdvice {
 	
+	@ExceptionHandler(BindException.class)
+	public String bindException(BindException ex, Model model) {
+		model.addAttribute("msg", ex);
+		return "error_page2";			
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public String except(Exception ex, Model model) {
 		
@@ -19,4 +27,6 @@ public class CommonExceptionAdvice {
 		
 		return "error_page";
 	}
+	
+	
 }
