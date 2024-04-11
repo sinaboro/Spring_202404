@@ -60,9 +60,9 @@
 		
 		//register 호출
 		$("#regBtn").on("click", function(){
-			self.location = "/board/register"
-		});
-	})
+			self.location = "/board/register";
+		})
+	});
 </script>
 
        
