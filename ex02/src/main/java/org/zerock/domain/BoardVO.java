@@ -2,7 +2,10 @@ package org.zerock.domain;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /*
  * 
@@ -17,6 +20,9 @@ create table tbl_board(
  */
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardVO {
 	private Long bno;
 	private String title;
@@ -27,3 +33,24 @@ public class BoardVO {
 	private Date updateDate;
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
