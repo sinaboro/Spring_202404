@@ -1,6 +1,7 @@
 package org.zerock.mapper;
 
 import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,6 +62,27 @@ public class BoardMapperTests {
 		BoardVO board = boardMapper.read(9L);
 		
 		log.info(board);
+	}
+
+	@Test
+	public void testDelete() {
+		
+		boardMapper.delete(9L);	
+		
+	}
+	
+	@Test
+	public void testUpdate() {
+		
+		BoardVO board  = BoardVO.builder()
+				.title("수정된 제목")
+				.content("수정된 내용")
+				.writer("수정자")
+				.bno(8L)
+				.build();
+		
+		boardMapper.update(board);	
+		
 	}
 
 }
