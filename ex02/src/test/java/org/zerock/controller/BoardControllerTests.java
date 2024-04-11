@@ -71,7 +71,32 @@ public class BoardControllerTests {
 	};
 	
 	
+	@Test
+	public void testModify() throws Exception{
+		String viewName = mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+				.param("title", "목업 수정")
+				.param("content", "목업 수정")
+				.param("writer", "목업수정자")
+				.param("bno", "8"))
+				
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
+		
+		log.info(viewName);
+	}
 	
+	@Test
+	public void testRemove() throws Exception{
+		String viewName = mockMvc.perform(MockMvcRequestBuilders.post("/board/remove")
+				.param("bno", "8"))
+				
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
+		
+		log.info(viewName);
+	}
 	
 	
 	
