@@ -41,7 +41,13 @@
 	                       	</div>
 	                       	
 	                       	<button data-oper='modify' class="btn btn-default">Modify</button>
-	                       	<button data-oper="list"   class="btn btn-info">List</button>
+	                       	
+	                       	<button data-oper="list"  class="btn btn-info" >List</button>
+	                       	
+	                       	<form id="operForm" action="/board/modify" method="get">
+	                       		<input type="hidden" id='bno' name='bno' value= "${board.bno}" >
+	                       	</form>
+	                       	
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -50,5 +56,33 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-       
+ <script>
+ 	$(document).ready(function(){
+ 		var operForm = $("#operForm");
+ 		
+ 		$("button[data-oper='modify']").on("click",function(e){
+ 			operForm.attr("action", "/board/modify").submit();
+ 		})
+
+ 		$("button[data-oper='list']").on("click",function(e){
+ 			operForm.find("#bno").remove();
+ 			operForm.attr("action", "/board/list").submit()
+ 		})
+ 		
+ 		
+ 	})
+ </script>      
  <%@ include file="../includes/footer.jsp" %>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

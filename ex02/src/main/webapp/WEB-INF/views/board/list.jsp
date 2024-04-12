@@ -34,7 +34,7 @@
                                 	<c:forEach var="board" items="${list}">
 	                                    <tr class="odd gradeX">
 	                                        <td>${board.bno}</td>
-	                                        <td>${board.title}</td>
+	                                        <td><a href='/board/get?bno=${board.bno}'/> ${board.title}</td>
 	                                        <td>${board.writer}</td>
 	                                        <td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd"/></td>
 	                                        <td><fmt:formatDate value="${board.updateDate}" pattern="yyyy-MM-dd"/></td>
@@ -78,16 +78,15 @@
 <script>
 	$(document).ready(function(){
 		
-		var result = '${result}'
+		var result = '<c:out value="${result}" />';
 		
-		/* var result2 = "<c:out value='${result}'/> "; */
+		checkModal(result);
 		
-		console.log(parseInt(result))
-		checkModal(result)
+		history.replaceState({}, null, null);
 		
 		//모달창
 		function checkModal(result){
-			if(result === ""){
+	 		if(result === "" || history.state){ 
 				return;
 			}
 			if(parseInt(result)>0){
@@ -95,8 +94,6 @@
 			}
 			$("#myModal").modal("show");
 		}
-		
-	
 		
 		//register 호출
 		$("#regBtn").on("click", function(){

@@ -11,8 +11,8 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-<script>
+<!-- <script>
 self.location = "/board/list";
-</script>
+</script> -->
 </body>
 </html>
