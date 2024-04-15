@@ -85,6 +85,12 @@
 							    </c:if>
 						  </ul>
 						</div>    <!-- End 페이징 처리 -->
+						
+						<form id="actionForm" action="/board/list" method="get">
+							<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+							<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+						</form>
+						
                             
                         </div>
                         <!-- /.panel-body -->
@@ -127,6 +133,16 @@
 		/* document.getElementById("regBtn").addEventListener("click",function(){
 			window.location.href = "/board/register";
 		}) */
+		
+		
+		var actionForm = $("#actionForm");
+		
+		$(".page-item a").on("click", function(e){
+			e.preventDefault();
+			console.log("click");
+			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+			actionForm.submit();
+		});
 		
 	});
 </script>
