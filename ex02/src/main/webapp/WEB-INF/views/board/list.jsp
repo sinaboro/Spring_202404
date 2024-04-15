@@ -91,6 +91,10 @@
 			}
 			if(parseInt(result)>0){
 				$(".modal-body").html("게시글 " + parseInt(result)+"번이 등록되었습니다.");
+			}else if(result === "modify"){
+				$(".modal-body").html("게시글 수정되었습니다.");
+			}else if(result === "delete"){
+				$(".modal-body").html("게시글 삭제되었습니다.");
 			}
 			$("#myModal").modal("show");
 		}

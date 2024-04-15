@@ -61,7 +61,8 @@
  		var operForm = $("#operForm");
  		
  		$("button[data-oper='modify']").on("click",function(e){
- 			operForm.attr("action", "/board/modify").submit();
+ 			/* operForm.attr("action", "/board/modify").submit(); */
+ 			operForm.submit();
  		})
 
  		$("button[data-oper='list']").on("click",function(e){
