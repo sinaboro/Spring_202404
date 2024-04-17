@@ -40,11 +40,13 @@
             		<input class="form-control" name="writer" value="${board.writer}" readonly="readonly">
            		</div>
            		
-           		<button data-oper='modify' class="btn btn-primary"
-           		onclick="location.href='/board/modify?bno=${board.bno}'">Modify</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           		<button data-oper='modify' class="btn btn-primary" >Modify</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            	
-           		<button data-oper='list' class="btn btn-warning"
-	           		onclick="location.href='/board/list'">List</button>
+           		<button data-oper='list' class="btn btn-warning">List</button>
+           		
+           		<form id="operForm" action="/board/modify" method="get">
+           			<input type="hidden" id="bno" name="bno" value=${board.bno}>
+           		</form>
             		
             </div>
             <!-- /.panel-body -->
