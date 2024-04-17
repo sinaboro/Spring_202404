@@ -15,6 +15,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Board List Page
+                <button id="regBtn" type="button" class="btn btn-xs pull-right btn-info">Register New Board</button>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -32,7 +33,9 @@
                     	<c:forEach var="board" items="${list}">
 	                        <tr class="odd gradeX">
 	                            <td>${board.bno }</td>
-	                            <td>${board.title }</td>
+	                            <td>
+	                            	<a href='/board/get?bno=${board.bno}'/>${board.title }
+	                            </td>
 	                            <td>${board.writer }</td>
 	                            <td><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"  /></td>
 	                            <td><fmt:formatDate value="${board.updateDate }" pattern="yyyy-MM-dd"  /></td>
@@ -63,7 +66,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        Modal body..
+        처리되었습니다.
       </div>
 
       <!-- Modal footer -->
@@ -75,20 +78,33 @@
   </div>
 </div> <!-- End The Modal -->
  
- 
- 
- 
- 
+  
  
  <script>
  	$(document).ready(function(){
- 		let result = ${result};
+ 		let result = '${result}';
  		
- 		checkModal();
+ 		checkModal(result);
  		
- 		function checkModal(){
+ 		history.replaceState({},null,null);
+ 		
+ 		function checkModal(result){
+ 			
+ 			if(result === '' || history.state){
+ 				return ;
+ 			}
+ 			
+ 			if(parseInt(result) > 0){
+ 				$(".modal-body").html("게시글 " + parseInt(result) + "번 등록 성공 했습니다.")
+ 			}
+ 			
  			$("#myModal").modal("show");	
- 		}
+ 		};
+ 		
+ 		
+ 		$("#regBtn").on("click",function(){
+ 			self.location = "/board/register";
+ 		})
  		
  	});
  </script>
