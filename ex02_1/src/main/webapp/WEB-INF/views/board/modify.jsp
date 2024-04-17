@@ -71,7 +71,16 @@
  				formObj.attr("action", "/board/remove"); 				
  			}else if(operation === 'list'){
  				formObj.attr("action", "/board/list").attr("method","get");
+ 				
+ 				let pageNumTag = $("input[name='pageNum']").clone();
+ 				let amountTag = $("input[name='amount']").clone();
+ 			
  				formObj.empty();
+ 				formObj.append(pageNumTag);
+ 				formObj.append(amountTag);
+ 			
+ 				
+ 				
  			}
  			formObj.submit();
  		});
