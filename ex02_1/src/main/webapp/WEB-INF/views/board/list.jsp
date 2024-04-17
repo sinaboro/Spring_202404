@@ -33,7 +33,7 @@
 	                        <tr class="odd gradeX">
 	                            <td>${board.bno }</td>
 	                            <td>
-	                            	<a href='/board/get?bno=${board.bno}'/>${board.title }
+	                            	<a class="move" href='${board.bno}'/>${board.title }
 	                            </td>
 	                            <td>${board.writer }</td>
 	                            <td><fmt:formatDate value="${board.regdate }" pattern="yyyy-MM-dd"  /></td>
@@ -51,6 +51,7 @@
 				    	<li class="page-item"><a class="page-link" href="${pageMaker.startPage - 1}">이전</a></li>
 				  	</c:if>
 				  	
+				  	<!-- actionForm.find("input[name='pageNum']").val($(this).attr("href")); -->
 				  	<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 				    	<li class="page-item ${pageMaker.cri.pageNum == num ? "active" : ""} ">
 				    		<a class="page-link" href="${num}">${num}</a>
@@ -140,6 +141,19 @@
  			actionForm.submit();
  		}) 
  		
+ 		
+ 		/*<form id="actionForm" action="/board/get" method="get">
+			<input type="hidden" name="pageNum" value=${pageMaker.cri.pageNum}>
+			<input type="hidden" name="amount" value=${pageMaker.cri.amount}>
+			<input type='hidden' name='bno' value='"+ $(this).attr("href") + "'>
+		</form>*/
+ 		
+ 		$(".move").on("click",function(e){
+ 			e.preventDefault();
+ 			actionForm.append("<input type='hidden' name='bno' value='"+ $(this).attr("href") + "'>")
+ 			actionForm.attr("action", "/board/get");
+ 			actionForm.submit();
+ 		})
  	});
  </script>
  
