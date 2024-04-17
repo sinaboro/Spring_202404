@@ -75,6 +75,7 @@ public class BoardController {
 		if(boardService.modify(board)) {  //board입력받아서 수정 성공하면 true, 실패하면 false
 			rttr.addFlashAttribute("result", "modify");
 		}
+		
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
 		
