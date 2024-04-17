@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 
 <%@include file="../includes/header.jsp" %>
-
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Board List</h1>
@@ -43,6 +42,33 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                
+                <!-- 페이징 처리 -->
+				<div class="container">
+				  <ul class="pagination">
+					
+					<c:if test="${pageMaker.prev}">  
+				    	<li class="page-item"><a class="page-link" href="${pageMaker.startPage - 1}">이전</a></li>
+				  	</c:if>
+				  	
+				  	<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+				    	<li class="page-item ${pageMaker.cri.pageNum == num ? "active" : ""} ">
+				    		<a class="page-link" href="${num}">${num}</a>
+				    	</li>
+				    </c:forEach>
+				  
+				  	<c:if test="${pageMaker.next}"> 
+				    	<li class="page-item"><a class="page-link" href="${pageMaker.endPage + 1}">다음</a></li>
+				    </c:if>
+				    
+				  </ul>
+				</div> <!-- End 페이징 처리 -->
+				
+				<form id="actionForm" action="/board/list" method="get">
+					<input type="hidden" name="pageNum" value=${pageMaker.cri.pageNum}>
+					<input type="hidden" name="amount" value=${pageMaker.cri.amount}>
+				</form>
+                
             </div>
             <!-- /.panel-body -->
         </div>
@@ -105,6 +131,14 @@
  		$("#regBtn").on("click",function(){
  			self.location = "/board/register";
  		})
+ 		
+ 		
+ 		let actionForm = $("#actionForm");
+ 		$(".page-item a").on("click", function(e){
+ 			e.preventDefault();
+ 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+ 			actionForm.submit();
+ 		}) 
  		
  	});
  </script>

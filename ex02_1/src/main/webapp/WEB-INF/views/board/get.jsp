@@ -56,5 +56,24 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
-      
+
+<script>
+ 	$(document).ready(function(){
+ 		
+ 		let operForm = $("#operForm");
+ 		
+ 		$("button[data-oper='modify']").on("click",function(e){
+ 			operForm.submit();
+ 		})
+
+ 		$("button[data-oper='list']").on("click",function(e){
+ 			operForm.find("#bno").remove();
+ 			operForm.attr("action", "/board/list")
+ 			operForm.submit();
+ 		})
+ 		
+ 	});
+ </script>
+
+
 <%@include file="../includes/footer.jsp" %>      

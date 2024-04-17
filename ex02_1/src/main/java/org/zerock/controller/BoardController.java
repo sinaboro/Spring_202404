@@ -35,7 +35,7 @@ public class BoardController {
 		
 		model.addAttribute("list", boardService.getList(cri));  //views/board/list.jsp
 		
-		model.addAttribute("pageMaker", new PageDTO(cri, 30));
+		model.addAttribute("pageMaker", new PageDTO(cri, 123));
 		
 //		int total = boardService.getTotal(cri);
 //		
