@@ -44,8 +44,7 @@ public class BoardController {
 //		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	
-	
-	@GetMapping("/register")
+	@GetMapping("/register")  //  WEB_INF/views/board/register.jsp
 	public void register() {
 		
 	}
