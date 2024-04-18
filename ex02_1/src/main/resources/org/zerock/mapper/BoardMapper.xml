@@ -52,14 +52,63 @@
 	    rownum rn, bno, title, content,writer,regdate,updatedate
 	    from 
 	    tbl_board
-	    where rownum <= #{pageNum} * #{amount}
+	    where 
+	    
+   ]]>
+   		<trim prefix="(" suffix=") and">
+   			<foreach collection="typeArr" item="type" separator="or">
+   				<if test="type == 'T'.toString()">
+   					title like '%' || #{keyword} || '%'
+   				</if>
+   				
+   				<if test="type == 'C'.toString()">
+   					content like '%' || #{keyword} || '%'
+   				</if>
+   			
+   				<if test="type == 'W'.toString()">
+   					writer like '%' || #{keyword} || '%'
+   				</if>
+   				
+   			</foreach>
+   		</trim>
+   <![CDATA[		    
+	    rownum <= #{pageNum} * #{amount}
 	) 
-	where rn > (#{pageNum} - 1) * #{amount}
+	where rn > (#{pageNum} - 1) * #{amount}          
    ]]>	  
   </select>
   
   <select id="getTotalCount" resultType="int">
   	select count(*) from tbl_board where bno > 0
+  </select>
+  
+  
+  <select id="searchTest" resultType="org.zerock.domain.BoardVO">
+  	<![CDATA[
+  		select * from tbl_board
+  		where	
+  	]]>	
+  		<!-- <trim prefix="(" suffix=") and"> -->
+	  		
+	  		<foreach collection="map" index="key" item="val" separator="or" open="(" close=") and">
+	  	
+	  		<!-- <foreach collection="map" index="key" item="val" separator="or"> -->	
+		  			<if test="key=='T'.toString()">
+		  				title like #{val}
+		  			</if>
+		  			<if test="key=='C'.toString()">
+		  				content like #{val}
+		  			</if>
+		  			<if test="key=='W'.toString()">
+		  				writer like #{val}
+		  			</if>
+	  		</foreach>
+  		<!-- </trim> -->
+  		
+  	<![CDATA[	
+  		rownum < 10
+  	]]>	
+  		
   </select>
 </mapper>
 

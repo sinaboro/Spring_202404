@@ -3,7 +3,9 @@ package org.zerock.mapper;
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -98,6 +100,35 @@ public class BoardMapperTests {
  		list.forEach(vo->log.info(vo));
 	}
 
+	
+	@Test
+	public void aaaa() {
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("T", "수정");
+		map.put("C", "제목");
+		map.put("W", "내용");
+		
+		Map<String, Map<String, String>> outer = new HashMap<>();
+		
+		outer.put("map", map);
+		
+		List<BoardVO> list = boardMapper.searchTest(outer);
+		
+		log.info(list);
+	}
+	
+	@Test
+	public void testSearchPaging() {
+		Criteria cri = new Criteria();
+		
+		cri.setType("");
+		cri.setKeyword("내용");
+		
+		List<BoardVO> list = boardMapper.getListWithPaging(cri);
+		
+		log.info(list);
+	}
 }
 
 
