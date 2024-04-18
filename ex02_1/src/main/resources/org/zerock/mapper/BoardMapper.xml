@@ -5,6 +5,27 @@
   
 <mapper namespace="org.zerock.mapper.BoardMapper">
   
+  
+  <sql id="criterial">
+  	<trim prefix="(" suffix=") and">
+   			<foreach collection="typeArr" item="type" separator="or">
+   				<if test="type == 'T'.toString()">
+   					title like '%' || #{keyword} || '%'
+   				</if>
+   				
+   				<if test="type == 'C'.toString()">
+   					content like '%' || #{keyword} || '%'
+   				</if>
+   			
+   				<if test="type == 'W'.toString()">
+   					writer like '%' || #{keyword} || '%'
+   				</if>
+   				
+   			</foreach>
+   		</trim>
+  </sql>
+  
+  
   <select id="getList" resultType="org.zerock.domain.BoardVO">
     select * from tbl_board where bno > 0
   </select>
@@ -45,7 +66,7 @@
   
   <![CDATA[	
   	select
-	bno, title, content, writer,regdate, updatedate
+	  *
 	from(
 	    select 
 	    /*+ index_desc(tbl_board pk_board)*/
@@ -55,31 +76,21 @@
 	    where 
 	    
    ]]>
-   		<trim prefix="(" suffix=") and">
-   			<foreach collection="typeArr" item="type" separator="or">
-   				<if test="type == 'T'.toString()">
-   					title like '%' || #{keyword} || '%'
-   				</if>
-   				
-   				<if test="type == 'C'.toString()">
-   					content like '%' || #{keyword} || '%'
-   				</if>
-   			
-   				<if test="type == 'W'.toString()">
-   					writer like '%' || #{keyword} || '%'
-   				</if>
-   				
-   			</foreach>
-   		</trim>
+   
+   <include refid="criterial"></include>
+   
    <![CDATA[		    
-	    rownum <= #{pageNum} * #{amount}
+	   rownum <= #{pageNum} * #{amount}
 	) 
 	where rn > (#{pageNum} - 1) * #{amount}          
    ]]>	  
   </select>
   
   <select id="getTotalCount" resultType="int">
-  	select count(*) from tbl_board where bno > 0
+  	select count(*) from tbl_board 
+  	where
+  	<include refid="criterial"></include>
+  	bno > 0
   </select>
   
   
