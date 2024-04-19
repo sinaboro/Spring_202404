@@ -8,7 +8,7 @@ import org.zerock.domain.ReplyVO;
 public interface ReplyService {
 	
 	public int register(ReplyVO reply);
-	public ReplyVO register(Long rno);
+	public ReplyVO get(Long rno);
 	public int modify(ReplyVO reply);
 	public int remove(Long rno);
 	
