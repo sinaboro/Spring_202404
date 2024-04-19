@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.zerock.domain.SampleVO;
 
+import com.google.gson.Gson;
+
 import lombok.extern.log4j.Log4j;
 
 //@Controller
@@ -72,6 +74,15 @@ public class SampleController {
 		
 		return map;
 	}
+
+	@GetMapping(value =  "/getMap2", produces = MediaType.APPLICATION_JSON_VALUE )
+	public Map<String, Object> getMap2(){
+	
+//		Map<String, String> map = Map.of("name : ", "park", "age : ", "20");
+//		return map;
+		
+		return Map.of("name : ", "kim", "age : ", 20);
+	}
 	
 	@GetMapping(value = "/check", params = {"height", "weight"}, 
 			produces = MediaType.APPLICATION_JSON_VALUE )
@@ -92,12 +103,28 @@ public class SampleController {
 	//localhost:8181/sample/product/조운/50
 	//                           
 	@GetMapping(value = "/product/{name}/{age}" , produces = MediaType.APPLICATION_JSON_VALUE)
-	public String[] getPath( 
-			@PathVariable("name") String a,  //조운
-			@PathVariable("age") Integer b  //50
+	public String getPath( 
+			@PathVariable("name") String name,  //조운
+			@PathVariable("age") Integer age  //50
 			) {
 		
-		return new String[] {"name: " + a, "age : " + b };
+		Map<String, Object> map = Map.of("name" , name, "age:" , age );
+		
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(map);
+		
+		log.info("====> " + jsonStr);
+		
+		return jsonStr;
+	}
+
+	@GetMapping(value = "/product2/{name}/{age}" , produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> getPath2( 
+			@PathVariable("name") String name,  //조운
+			@PathVariable("age") Integer age  //50
+			) {
+		
+		return  Map.of("name" , name, "age:" , age );
 	}
 	
 	
@@ -105,6 +132,7 @@ public class SampleController {
 	@PostMapping(value = "/ticket", produces = MediaType.APPLICATION_JSON_VALUE)
 	public SampleVO convert(@RequestBody SampleVO vo) {
 		log.info("===========>> " + vo);
+	
 		return vo;
 	}
 }
