@@ -125,11 +125,11 @@ $(document).ready(function(){
 				str += "<li class='left clearfix' data-rno='"+ list[i].rno  +"'>"
     			str += "<div>"
     			str += "<div class='header'>"
-    			str += "<strong class='primary-font'>user00</strong>"		
-    			str += "<small class='pull-right text-muted'>2024-04-22 14:12:00</small>"		
+    			str += "<strong class='primary-font'>"+ list[i].replyer+"</strong>"		
+    			str += "<small class='pull-right text-muted'> "+ list[i].replyDate +" </small>"		
     			str += "</div>"	
     			str += "</div>"
-    			str += "<p>Good Job!</p></li>"
+    			str += "<p>"+list[i].reply +"</p></li>"
 			}
 			replyUL.html(str)
 			
