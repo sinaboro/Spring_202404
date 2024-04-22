@@ -37,17 +37,19 @@ public class ReplyController {
 		
 		int insertCount = replyService.register(reply);
 		
-		return insertCount == 1 ? new ResponseEntity<String>("success", HttpStatus.OK) : 
+		return insertCount == 1 ? new ResponseEntity<String>("abcd", HttpStatus.OK) : 
 								  new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	//localhost:8181/reply/12
+	//localhost:8181/reply/207
 	@GetMapping(value = "/{rno}", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno){
 		
 		log.info("get........." + rno);
 		
-		return new ResponseEntity<ReplyVO>(replyService.get(rno), HttpStatus.OK);
+		ReplyVO vo = replyService.get(rno);
+		
+		return new ResponseEntity<ReplyVO>(vo, HttpStatus.OK);
 	}
 
 	//localhost:8181/reply/12

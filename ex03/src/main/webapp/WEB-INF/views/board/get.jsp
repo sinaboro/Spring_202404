@@ -9,6 +9,7 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+
 <!-- /.row -->
 <div class="row">
     <div class="col-lg-12">
@@ -62,6 +63,38 @@
 </div>
 <!-- /.row -->
 
+
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-comments fa-fw"></i> Reply
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+            	<ul class="chat">
+            		<li class="left clearfix" data-rno='12'>
+            			<div>
+            				<div class="header">
+            					<strong class="primary-font">user00</strong>
+            					<small class="pull-right text-muted">2024-04-22 14:12:00</small>
+            				</div>
+            			</div>
+            			<p>Good Job!</p>
+            		</li>
+            	</ul>		
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+
+
+
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 
 <script>
@@ -70,16 +103,90 @@ $(document).ready(function(){
 	console.log("JS TEST................")
 	
 	var bnoValue = "${board.bno}";
+	var replyUL = $(".chat")
 	
 	console.log("bnoValue................" + bnoValue)
 	
+	showList(1);
+	
+	function showList(page){
+		replyService.getList({bno:bnoValue, page:page}, function(list){
+			console.log("getList...............")
+			console.log(list)
+			
+			var str=""
+			
+			if(list == null || list.length==0){
+				replyUL.html("")
+				return ;
+			}
+			
+			for(var i=0; i<list.length; i++){
+				str += "<li class='left clearfix' data-rno='"+ list[i].rno  +"'>"
+    			str += "<div>"
+    			str += "<div class='header'>"
+    			str += "<strong class='primary-font'>user00</strong>"		
+    			str += "<small class='pull-right text-muted'>2024-04-22 14:12:00</small>"		
+    			str += "</div>"	
+    			str += "</div>"
+    			str += "<p>Good Job!</p></li>"
+			}
+			replyUL.html(str)
+			
+		}) //End showList
+		
+	}
+	
+	
+	
 	//댓글 등록
-	replyService.add(		
+	/* replyService.add(		
+		
 		{reply:"JS Test2", replyer: "tester2", bno:bnoValue},
+		
 		function(result){
+			console.log("complete")
 			alert("RESULT : " + result)
 		}
-	);	
+	);	 */
+	
+	/* replyService.getList(
+		{bno:bnoValue, page:1},
+		
+		function(list){
+			//for(var i=0, len=list.length||0; i<len; i++){
+			for(var i=0; i<list.length; i++){	
+				console.log(list[i])
+			}
+				
+		}
+		
+	) */
+	
+	/* var rno = 208
+	replyService.remove(rno, function(msg){
+			  alert(msg)			
+		}
+	);
+	 */
+	
+	/* var data = {
+				rno:207,
+				reply: "Modified Reply..."
+	}
+	replyService.update(
+		data, 
+		function(result){
+			alert(result);
+		}			
+	) */
+	
+	/* replyService.get( 207, function(data){
+								console.log(data)
+							}
+	); */
+	
+	
 	
 });
 </script>
