@@ -41,6 +41,7 @@ public class ReplyController {
 								  new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	//localhost:8181/reply/12
 	@GetMapping(value = "/{rno}", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno){
 		
@@ -49,6 +50,7 @@ public class ReplyController {
 		return new ResponseEntity<ReplyVO>(replyService.get(rno), HttpStatus.OK);
 	}
 
+	//localhost:8181/reply/12
 	@DeleteMapping(value = "/{rno}", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> delete(@PathVariable("rno") Long rno){
 		
@@ -59,7 +61,7 @@ public class ReplyController {
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	//localhost:8181/reply/201  +  { "reply": "수정내용이와야됨" }
+	//localhost:8181/reply/13  +  { "reply": "수정내용이와야됨" }
 	@PutMapping(value = "/{rno}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> update(@PathVariable("rno") Long rno, @RequestBody ReplyVO reply ){
 		log.info("rno........." + rno);
@@ -72,6 +74,7 @@ public class ReplyController {
 				new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	//localhost:8181/reply/pages/100/1 -->
 	@GetMapping(value ="/pages/{bno}/{page}" , produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<ReplyVO>> getList(
 			@PathVariable("bno") Long bno,
