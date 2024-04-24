@@ -108,12 +108,13 @@ var replyService = (function(){
 	} //end get
 	
 	function displayTime(timeValue){
+	    console.log(timeValue);
 		var today = new Date();
 		
 		var gap = today.getTime() - timeValue;
 		
 		var dateObj = new Date(timeValue)
-		
+		console.log(dateObj);
 		var str = "";
 		
 		if(gap < (1000 * 60 * 60 * 24)) {

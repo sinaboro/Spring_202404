@@ -64,12 +64,13 @@
 <!-- /.row -->
 
 
-<!-- /.row -->
+<!-- /.row 댓글 처리 -->
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-comments fa-fw"></i> Reply
+                <button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New Relpy</button>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -92,6 +93,56 @@
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
+
+
+<!--  댓글 Modal -->
+<div class="container">
+  <h2>Modal Example</h2>
+  <!-- Button to Open the Modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button>
+
+ <!-- The Modal -->
+ <div class="modal" id="myModal">
+   <div class="modal-dialog">
+     <div class="modal-content">
+     
+       <!-- Modal Header -->
+       <div class="modal-header">
+         <h4 class="modal-title">REPLY MODAL</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+       
+       <!-- Modal body -->
+       <div class="modal-body">
+         <div class="form-group">
+         	<label>Reply</label>
+         	<input class="form-control" name="reply" value="New Reply.......">
+         </div>
+
+         <div class="form-group">
+         	<label>Replyer</label>
+         	<input class="form-control" name="replyer" value="New Replyer.......">
+         </div>
+
+         <div class="form-group">
+         	<label>Reply Date</label>
+         	<input class="form-control" name="replyDate" value="">
+         </div>
+       </div>
+       
+       <!-- Modal footer -->
+        <div class="modal-footer">
+          <button id="modalRegisterBtn"  type="button" class="btn btn-primary" >Register</button>
+          <button id="modalModBtn"  type="button" class="btn btn-warning" >Modify</button>
+          <button id="modalRemoveBtn"  type="button" class="btn btn-danger" >Remove</button>
+          <button id="modalCloseBtn"  type="button" class="btn btn-default" data-dismiss='modal' >Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>   <!-- End The Modal -->
 
 
 
@@ -135,7 +186,13 @@ $(document).ready(function(){
 			
 		}) //End showList
 		
-	}
+		
+		$("#addReplyBtn").on("click", function(e){
+			
+			$(".modal").modal("show");
+		});
+		
+}
 	
 	
 	
