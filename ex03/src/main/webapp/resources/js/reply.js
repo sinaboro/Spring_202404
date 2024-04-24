@@ -3,7 +3,7 @@ console.log("Reply Module..........")
 var replyService = (function(){
 
 	function add(reply, callback){
-		console.log("reply............")
+		console.log(" add reply............" + reply)
 		//비동기 통신
 		$.ajax({
 			type: "post",
@@ -25,6 +25,9 @@ var replyService = (function(){
 	}; // end add
 
 	function getList(param, callback, error){
+	
+		console.log("bno & page......... : " ,param.bno , "," , param.page)
+		 
 		var bno = param.bno;
 		var page = param.page || 1
 
@@ -46,6 +49,8 @@ var replyService = (function(){
 	}   // end getList
 
 	function remove(rno, callback, error){
+	
+		console.log("remove Rno : " + rno)
 		$.ajax({
 			type: "delete",
 			url: "/reply/" +rno,

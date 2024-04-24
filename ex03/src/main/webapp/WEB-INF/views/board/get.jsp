@@ -229,7 +229,7 @@ $(document).ready(function(){
 		
 		replyService.get(rno, function(reply){
 			modalInputReply.val(reply.reply)
-			modalInputReplyer.val(reply.replyer).attr("readonly", "readonly")
+			modalInputReplyer.val(reply.replyer)
 			modalInputReplyDate.val(  replyService.displayTime(reply.replyDate)).attr("readonly", "readonly")
 			
 			modal.data("rno", reply.rno)
