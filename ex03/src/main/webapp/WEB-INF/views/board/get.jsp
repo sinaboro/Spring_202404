@@ -94,20 +94,10 @@
 </div>
 <!-- /.row -->
 
-
-<!--  댓글 Modal -->
-<div class="container">
-  <h2>Modal Example</h2>
-  <!-- Button to Open the Modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Open modal
-  </button>
-
  <!-- The Modal -->
  <div class="modal" id="myModal">
    <div class="modal-dialog">
      <div class="modal-content">
-     
        <!-- Modal Header -->
        <div class="modal-header">
          <h4 class="modal-title">REPLY MODAL</h4>
@@ -131,7 +121,6 @@
          	<input class="form-control" name="replyDate" value="">
          </div>
        </div>
-       
        <!-- Modal footer -->
         <div class="modal-footer">
           <button id="modalRegisterBtn"  type="button" class="btn btn-primary" >Register</button>
@@ -168,7 +157,6 @@ $(document).ready(function(){
 	function showList(page){
 		replyService.getList({bno:bnoValue, page:page}, function(list){
 			console.log("getList...............")
-			console.log(list)
 			
 			var str=""
 			
@@ -189,74 +177,101 @@ $(document).ready(function(){
 			}
 			replyUL.html(str)
 			
-		}) //End showList
+		}) 
+	}	//End showList
+		
+	var modal = $(".modal")
+	var modalInputReply = modal.find("input[name='reply']")
+	var modalInputReplyer = modal.find("input[name='replyer']")
+	var modalInputReplyDate = modal.find("input[name='replyDate']")
+	
+	var modalRegisterBtn = $("#modalRegisterBtn");
+	var modalModBtn = $("#modalModBtn");
+	var modalRemoveBtn = $("#modalRemoveBtn");
+	var modalCloseBtn = $("#modalCloseBtn")
 		
 		
-		var modal = $(".modal")
-		var modalInputReply = modal.find("input[name='reply']")
-		var modalInputReplyer = modal.find("input[name='replyer']")
-		var modalInputReplyDate = modal.find("input[name='replyDate']")
+	$("#addReplyBtn").on("click", function(e){
 		
-		var modalRegisterBtn = $("#modalRegisterBtn");
-		var modalModBtn = $("#modalModBtn");
-		var modalRemoveBtn = $("#modalRemoveBtn");
-		var modalCloseBtn = $("#modalCloseBtn")
+		modal.find("input").val("")
+		modalInputReplyDate.closest("div").hide();
+		modal.find("button[id != 'modalCloseBtn']").hide()
+		modalRegisterBtn.show()
+		
+		$(".modal").modal("show");
+	});
 		
 		
-		$("#addReplyBtn").on("click", function(e){
-			
+	//댓글 등록
+	modalRegisterBtn.on("click", function(e){
+		
+		console.log("register...............")
+	
+		var reply = {
+			reply : modalInputReply.val(),
+			replyer: modalInputReplyer.val(),
+			bno : bnoValue
+		}
+		
+		replyService.add(reply, function(result){
+			alert(result)
 			modal.find("input").val("")
-			modalInputReplyDate.closest("div").hide();
-			modal.find("button[id != 'modalCloseBtn']").hide()
-			modalRegisterBtn.show()
-			
-			$(".modal").modal("show");
-		});
-		
-		
-		//댓글 등록
-		modalRegisterBtn.on("click", function(e){
-			var reply = {
-				reply : modalInputReply.val(),
-				replyer: modalInputReplyer.val(),
-				bno : bnoValue
-			}
-			
-			replyService.add(reply, function(result){
-				alert(result)
-				modal.find("input").val("")
-				modal.modal("hide")
-			})
-			
-		}) // End 댓글 등록
-		
-		//이벤트 위임을 통한 댓글 클릭 이벤트
-		$(".chat").on("click","li", function(e){
-			
-			var rno = $(this).data("rno")
-			console.log(rno)
-			
-			replyService.get(rno, function(reply){
-				
-				console.log("reply")
-				console.log(reply)
-				
-				modalInputReply.val(reply.reply)
-				modalInputReplyer.val(reply.replyer)
-				modalInputReplyDate.val(  replyService.displayTime(reply.replyDate)).attr("readonly", "readonly")
-				
-				
-				$(".modal").modal("show")
-				
-			})
-			
-		
+			modal.modal("hide")
 		})
 		
+	}) // End 댓글 등록
+		
+	//이벤트 위임을 통한 댓글 클릭 이벤트
+	$(".chat").on("click","li", function(e){
+		
+		console.log("get...............")
+		var rno = $(this).data("rno")
+		
+		replyService.get(rno, function(reply){
+			modalInputReply.val(reply.reply)
+			modalInputReplyer.val(reply.replyer).attr("readonly", "readonly")
+			modalInputReplyDate.val(  replyService.displayTime(reply.replyDate)).attr("readonly", "readonly")
+			
+			modal.data("rno", reply.rno)
+			
+			modal.find("button[id != 'modalCloseBtn']").hide()
+			modalModBtn.show()
+			modalRemoveBtn.show()
+			
+			$(".modal").modal("show")
+			
+		})			
+	})  //이벤트 위임
 	
-}
-	
-	
+	//댓글 수정
+	modalModBtn.on("click", function(e){
+		console.log("update...............")
+		
+		var reply = {
+			reply: 	modalInputReply.val(),
+			rno: modal.data("rno")
+		}
+		
+		replyService.update(reply, function(result){
+			alert(result);
+			modal.modal("hide")
+			showList(1)
+		})
+	})  //End 댓글 수정
+
+	//댓글 삭제
+	modalRemoveBtn.on("click", function(e){
+		console.log("remove...............")
+		
+		let rno =  modal.data("rno")
+		
+		console.log(rno)
+		replyService.remove(rno, function(result){
+			alert(result);
+			modal.modal("hide")
+			showList(1)
+		})
+	})  //End 댓글 삭제
 	
 	//댓글 등록
 /* 	replyService.add(		
