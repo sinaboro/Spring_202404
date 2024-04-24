@@ -37,7 +37,7 @@ public class ReplyController {
 		
 		int insertCount = replyService.register(reply);
 		
-		return insertCount == 1 ? new ResponseEntity<String>("abcd", HttpStatus.OK) : 
+		return insertCount == 1 ? new ResponseEntity<String>("success", HttpStatus.OK) : 
 								  new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	

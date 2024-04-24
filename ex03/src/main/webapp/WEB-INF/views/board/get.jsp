@@ -223,7 +223,7 @@ $(document).ready(function(){
 				modal.modal("hide")
 			})
 			
-		})
+		}) // End 댓글 등록
 }
 	
 	
