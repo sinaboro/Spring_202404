@@ -144,9 +144,14 @@
   </div>
 </div>   <!-- End The Modal -->
 
-
+<style>
+.chat > li:hover {
+	cursor:pointer;
+}
+</style>
 
 <script type="text/javascript" src="/resources/js/reply.js"></script>
+
 
 <script>
 $(document).ready(function(){
@@ -224,6 +229,31 @@ $(document).ready(function(){
 			})
 			
 		}) // End 댓글 등록
+		
+		//이벤트 위임을 통한 댓글 클릭 이벤트
+		$(".chat").on("click","li", function(e){
+			
+			var rno = $(this).data("rno")
+			console.log(rno)
+			
+			replyService.get(rno, function(reply){
+				
+				console.log("reply")
+				console.log(reply)
+				
+				modalInputReply.val(reply.reply)
+				modalInputReplyer.val(reply.replyer)
+				modalInputReplyDate.val(  replyService.displayTime(reply.replyDate)).attr("readonly", "readonly")
+				
+				
+				$(".modal").modal("show")
+				
+			})
+			
+		
+		})
+		
+	
 }
 	
 	
