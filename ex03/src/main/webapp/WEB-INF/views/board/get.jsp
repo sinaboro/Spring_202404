@@ -126,7 +126,7 @@ $(document).ready(function(){
     			str += "<div>"
     			str += "<div class='header'>"
     			str += "<strong class='primary-font'>"+ list[i].replyer+"</strong>"		
-    			str += "<small class='pull-right text-muted'> "+ list[i].replyDate +" </small>"		
+    			str += "<small class='pull-right text-muted'> "+ replyService.displayTime(list[i].replyDate) +" </small>"		
     			str += "</div>"	
     			str += "</div>"
     			str += "<p>"+list[i].reply +"</p></li>"
@@ -140,7 +140,7 @@ $(document).ready(function(){
 	
 	
 	//댓글 등록
-	/* replyService.add(		
+/* 	replyService.add(		
 		
 		{reply:"JS Test2", replyer: "tester2", bno:bnoValue},
 		
@@ -148,7 +148,7 @@ $(document).ready(function(){
 			console.log("complete")
 			alert("RESULT : " + result)
 		}
-	);	 */
+	); */
 	
 	/* replyService.getList(
 		{bno:bnoValue, page:1},
