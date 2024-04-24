@@ -84,9 +84,19 @@
             			</div>
             			<p>Good Job!</p>
             		</li>
-            	</ul>		
+            	</ul>
             </div>
             <!-- /.panel-body -->
+            
+            <!-- 페이징 처리 -->
+            	
+            	<div class="panel-footer">
+            		
+            	</div>
+            
+           	<!-- End 페이징 처리 -->		
+            
+            
         </div>
         <!-- /.panel -->
     </div>
@@ -155,8 +165,15 @@ $(document).ready(function(){
 	showList(1);
 	
 	function showList(page){
-		replyService.getList({bno:bnoValue, page:page}, function(list){
-			console.log("getList...............")
+		replyService.getList({bno:bnoValue, page:page}, function(replyCnt, list){
+			
+			
+			//마지막 페이지 처리
+			if(page == -1){
+				var pageNum = Math.ceil(replyCnt/10.0);
+				showList(pageNum)
+				return
+			}
 			
 			var str=""
 			
@@ -176,6 +193,8 @@ $(document).ready(function(){
     			str += "<p>"+list[i].reply +"</p></li>"
 			}
 			replyUL.html(str)
+			
+			showReplyPage(replyCnt)
 			
 		}) 
 	}	//End showList
@@ -217,6 +236,8 @@ $(document).ready(function(){
 			alert(result)
 			modal.find("input").val("")
 			modal.modal("hide")
+			
+			showList(-1)
 		})
 		
 	}) // End 댓글 등록
@@ -272,6 +293,59 @@ $(document).ready(function(){
 			showList(1)
 		})
 	})  //End 댓글 삭제
+	
+	
+	var pageNum = 1
+	var replyPageFooter = $(".panel-footer")
+	
+	function showReplyPage(replyCnt){
+		
+		var endNum = Math.ceil(pageNum / 10.0) * 10
+		var startNum = endNum - 9
+		
+		var prev = startNum != 1
+		var next = false;
+		
+		if(endNum * 10 >= replyCnt){
+			endNum = Math.ceil(replyCnt/10.0)
+		}
+		
+		if(endNum * 10 < replyCnt){
+			next = true
+		}
+		
+		var str = "<ul class='pagination pull-right'>";
+		
+		if(prev){
+			str += "<li class='page-item'><a class='page-link' href='"+ (startNum-1) +"'>이전</a></li>";
+		}
+		
+		for(var i=startNum; i<=endNum; i++){
+			var active  = pageNum ==i? "active": "";
+			
+			str += "<li class='page-item "+ active +" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+					
+		}
+		
+		if(next){
+			str += "<li class='page-item'><a class='page-link' href='"+ (endNum+1) +"'>다음</a></li>";
+		}
+		str += "</ul>"
+		
+		replyPageFooter.html(str)
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//댓글 등록
 /* 	replyService.add(		
