@@ -34,7 +34,9 @@ public class BoardController {
 	public void list(Criteria cri,  Model model){   
 		log.info("list........" + cri);
 		
+		
 		model.addAttribute("list", boardService.getList(cri));  //views/board/list.jsp
+		
 		
 //		model.addAttribute("pageMaker", new PageDTO(cri, 123));
 		

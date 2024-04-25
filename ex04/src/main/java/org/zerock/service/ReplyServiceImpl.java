@@ -3,9 +3,11 @@ package org.zerock.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.ReplyPageDTO;
 import org.zerock.domain.ReplyVO;
+import org.zerock.mapper.BoardMapper;
 import org.zerock.mapper.ReplyMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -18,16 +20,21 @@ public class ReplyServiceImpl implements ReplyService{
 
 	private final ReplyMapper mapper;
 	
+	private final BoardMapper boardMapper;
+	
+	@Transactional
 	@Override
 	public int register(ReplyVO reply) {
 		log.info("register....." + reply);
 		
-		return mapper.insert(reply);
+		int result  = mapper.insert(reply);
+		boardMapper.updateReplyCnt(reply.getBno(), 1);
+		
+		return result;
 	}
 
 	@Override
 	public ReplyVO get(Long rno) {
-		
 		log.info("get..... " + rno);
 		return mapper.read(rno);
 	}
@@ -39,10 +46,14 @@ public class ReplyServiceImpl implements ReplyService{
 		return mapper.update(reply);
 	}
 
+	@Transactional
 	@Override
 	public int remove(Long rno) {
 		log.info("delete...... " + rno);
 		
+		ReplyVO vo = mapper.read(rno);
+		
+		boardMapper.updateReplyCnt(vo.getBno(), -1);
 		return mapper.delete(rno);
 	}
 

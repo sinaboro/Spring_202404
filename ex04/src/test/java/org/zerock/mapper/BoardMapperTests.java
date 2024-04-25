@@ -28,7 +28,8 @@ public class BoardMapperTests {
 	@Test
 	public void testGetList() {
 		
-		boardMapper.getList().forEach(vo -> log.info(vo));
+		Criteria cri = new Criteria();
+		boardMapper.getListWithPaging(cri).forEach(vo -> log.info(vo));
 	}
 	
 	@Test
