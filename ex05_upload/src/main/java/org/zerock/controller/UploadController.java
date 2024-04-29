@@ -2,6 +2,8 @@ package org.zerock.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +53,16 @@ public class UploadController {
 	@ResponseBody
 	public void uploadAjaxAction(MultipartFile[] uploadFile) {
 		
-		String uploadFolder = "c:\\upload";
+		String uploadFolder = "C:\\upload";
+		
+		
+		//make folder......
+		File uploadPath = new File(uploadFolder, getFolder());  //c:\\upload\2024\04\29
+		
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdirs();   //폴더or디렉토리 생성
+		}
+		
 		
 		for( MultipartFile multipartFile : uploadFile) {
 			
@@ -66,7 +77,7 @@ public class UploadController {
 			log.info(uploadFileName);
 			
 			
-			File saveFile = new File(uploadFolder, uploadFileName);  //저장 대상
+			File saveFile = new File(uploadPath, uploadFileName);  //저장 대상
 			
 			try {
 				multipartFile.transferTo(saveFile);  //파일 저장
@@ -74,5 +85,17 @@ public class UploadController {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	private String getFolder() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date date = new Date();
+		log.info("-----------------------------------------------");
+		
+		String str = sdf.format(date);  //2024-04-29
+		
+		return str.replace("-", File.separator);  //  2024\04\29
 	}
 }
