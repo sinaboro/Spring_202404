@@ -14,6 +14,35 @@
   	insert into tbl_member_auth(userid, auth) 
   	values(#{userid}, #{auth})
   </insert>
+  
+  
+  <resultMap type="org.zerock.domain.MemberVO" id="memberMap">
+  	
+  	<id property="userid" column="userid" />
+  	
+  	<result property="userid" column="userid"/>
+  	<result property="userpw" column="userpw"/>
+  	<result property="username" column="username"/>
+  	<result property="regDate" column="regdate"/>
+  	<result property="updateDate" column="updatedate"/>
+  	<result property="enabled" column="enabled"/>
+  	
+  	<collection property="authList" resultMap="authMap"></collection>
+  </resultMap>
+  
+  <resultMap type="org.zerock.domain.AuthVO" id="authMap">
+  	<result property="userid" column="userid"/>
+  	<result property="auth" column="auth"/>
+  </resultMap>
+  
+  <select id="read" resultMap="memberMap">
+  	select 
+		m.userid, userpw, username, enabled, regdate, updatedate, auth
+	from 
+	tbl_member m left join tbl_member_auth a
+	on m.userid = a.userid
+	where m.userid = #{userid}
+  </select>
 </mapper>
 
 

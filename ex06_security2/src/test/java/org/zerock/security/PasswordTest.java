@@ -88,5 +88,11 @@ public class PasswordTest {
 	}
 	
 	
+	@Test
+	public void testRead() {
+		MemberVO vo = memberMapper.read("user99");
+		log.info(vo);
+	}
+	
 	
 }
