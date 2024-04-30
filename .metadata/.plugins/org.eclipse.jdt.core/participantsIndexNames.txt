@@ -25,6 +25,8 @@ C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2247549840
 \ex02_1\src\main\java
 C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4254041156.index
 \ex06\src\main\java
+C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2430043905.index
+\ex06_security\src\main\java
 C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1507904090.index
 \ex06_security\src\main\java
 C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2263995694.index
@@ -35,10 +37,16 @@ C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2415907875
 \ex01\src\main\java
 C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2185909724.index
 \ex03\src\main\java
+C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3968225902.index
+\ex06_security2\src\main\java
 C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4190927942.index
 \ex02_1\src\main\java
+C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2065991698.index
+\ex06_security2\src\main\java
 C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2604532876.index
 \ex06\src\main\java
+C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\782652799.index
+\ex06_security2\src\main\java
 C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2283159039.index
 \ex05\src\main\java
 C:\Java2\spring\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1288633631.index
