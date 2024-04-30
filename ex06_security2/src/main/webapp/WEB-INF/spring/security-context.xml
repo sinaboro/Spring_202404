@@ -11,12 +11,20 @@
 	<bean id="accessDeniedHandler" class="org.zerock.security.CustomAccessDeniedHandler">
 	</bean>
 	
+	<bean id="customLoginSuccessHandler" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
+	
 	<security:http>
 		<security:intercept-url pattern="/sample/all" access="permitAll"/>
 		<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
-		<security:form-login/>
 		
+		<security:csrf disabled="true"/>
+		
+		<security:form-login login-page="/customLogin" 
+			authentication-success-handler-ref="customLoginSuccessHandler"/>
+		
+		<security:logout logout-url="/customLogout" invalidate-session="true"/>
+			 
 		<security:access-denied-handler ref="accessDeniedHandler"/>
 		
 	</security:http>
@@ -33,8 +41,6 @@
 				password="{noop}1234"/>
 			</security:user-service>
 		</security:authentication-provider>
-		
-		
 	</security:authentication-manager>
 	
 	
