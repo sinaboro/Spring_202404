@@ -40,11 +40,12 @@ public class PasswordTest {
 	public void testInsertMember() {
 		
 		for(int i=1; i<=100; i++) {
+			
 			MemberVO memberVO = new MemberVO();
 			
 			memberVO.setUserid("user"+i);
 			memberVO.setUserpw(pwEncoder.encode("1111"));
-			memberVO.setUsername("USER"+i);
+			memberVO.setName("USER"+i);
 			
 			List<AuthVO> authList = new ArrayList<AuthVO>();
 			

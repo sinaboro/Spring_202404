@@ -28,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		log.info(vo);
 		
-		return null;
+		return vo;
 	}
 
 }
