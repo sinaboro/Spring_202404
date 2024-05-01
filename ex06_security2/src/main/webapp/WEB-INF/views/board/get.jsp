@@ -41,8 +41,16 @@
             		<input class="form-control" name="writer" value="${board.writer}" readonly="readonly">
            		</div>
            		
-           		<button data-oper='modify' class="btn btn-primary" >Modify</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           	
+           		
+           		<sec:authentication property="principal" var="pinfo"/>
+           		
+           		<sec:authorize access="isAuthenticated()">
+           			<c:if test="${pinfo.username eq board.writer }">
+           				<button data-oper='modify' class="btn btn-primary" >Modify</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           			</c:if>
+           		</sec:authorize>
+           		
+           		
            		<button data-oper='list' class="btn btn-warning">List</button>
            		
            		<form id="operForm" action="/board/modify" method="get">
@@ -70,7 +78,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <i class="fa fa-comments fa-fw"></i> Reply
-                <button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New Relpy</button>
+                
+                <sec:authorize access="isAuthenticated()">
+                	<button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New Relpy</button>
+                </sec:authorize>
+                
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
