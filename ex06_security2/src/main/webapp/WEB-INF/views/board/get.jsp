@@ -220,11 +220,17 @@ $(document).ready(function(){
 	var modalModBtn = $("#modalModBtn");
 	var modalRemoveBtn = $("#modalRemoveBtn");
 	var modalCloseBtn = $("#modalCloseBtn")
-		
+	
+	var replyer = null;
+	
+	<sec:authorize access="isAuthenticated()">
+		replyer = '<sec:authentication property="principal.username" />'  		
+	</sec:authorize>
 		
 	$("#addReplyBtn").on("click", function(e){
 		
 		modal.find("input").val("")
+		modal.find("input[name='replyer']").val(replyer); 
 		modalInputReplyDate.closest("div").hide();
 		modal.find("button[id != 'modalCloseBtn']").hide()
 		modalRegisterBtn.show()
@@ -232,6 +238,9 @@ $(document).ready(function(){
 		$(".modal").modal("show");
 	});
 		
+	
+	
+	
 		
 	//댓글 등록
 	modalRegisterBtn.on("click", function(e){
@@ -280,9 +289,25 @@ $(document).ready(function(){
 	modalModBtn.on("click", function(e){
 		console.log("update...............")
 		
+		var originalReplyer = modalInputReplyer.val();
+		
+		
 		var reply = {
+			rno: modal.data("rno"),
 			reply: 	modalInputReply.val(),
-			rno: modal.data("rno")
+			replyer: originalReplyer
+		}
+		
+		if(!replyer){
+			alert("로그인후 수정 가능합니다.")
+			modal.modal("hide")
+			return ;
+		}
+		
+		if(replyer != originalReplyer){
+			alert("자신이 작성한 댓글만 수정이 가능합니다.")
+			modal.modal("hide")
+			return
 		}
 		
 		replyService.update(reply, function(result){
@@ -299,6 +324,21 @@ $(document).ready(function(){
 		let rno =  modal.data("rno")
 		
 		console.log(rno)
+		
+		if(!replyer){
+			alert("로그인후 삭제가 가능합니다.")
+			modal.modal("hide")
+			return ;
+		}
+		
+		var originalReplyer = modalInputReplyer.val();
+		
+		if(replyer != originalReplyer){
+			alert("자신이 작성한 댓글만 삭제가 가능합니다.")
+			modal.modal("hide")
+			return
+		}
+		
 		replyService.remove(rno, function(result){
 			alert(result);
 			modal.modal("hide")
