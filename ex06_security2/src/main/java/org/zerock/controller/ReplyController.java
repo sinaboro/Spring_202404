@@ -56,8 +56,9 @@ public class ReplyController {
 	}
 
 	//localhost:8181/reply/12
-	@DeleteMapping(value = "/{rno}", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> delete(@PathVariable("rno") Long rno){
+	@PreAuthorize("principal.username == #reply.replyer")
+	@DeleteMapping(value = "/{rno}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> delete(@RequestBody ReplyVO reply,  @PathVariable("rno") Long rno){
 		
 		log.info("delete........." + rno);
 		
@@ -67,6 +68,7 @@ public class ReplyController {
 	}
 	
 	//localhost:8181/reply/13  +  { "reply": "수정내용이와야됨" }
+	@PreAuthorize("principal.username == #reply.replyer")
 	@PutMapping(value = "/{rno}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> update(@PathVariable("rno") Long rno, @RequestBody ReplyVO reply ){
 		log.info("rno........." + rno);

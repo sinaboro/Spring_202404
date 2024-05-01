@@ -333,13 +333,15 @@ $(document).ready(function(){
 		
 		var originalReplyer = modalInputReplyer.val();
 		
+		console.log("originalReplyer : " + originalReplyer)
+		
 		if(replyer != originalReplyer){
 			alert("자신이 작성한 댓글만 삭제가 가능합니다.")
 			modal.modal("hide")
 			return
 		}
 		
-		replyService.remove(rno, function(result){
+		replyService.remove(rno, originalReplyer ,function(result){
 			alert(result);
 			modal.modal("hide")
 			showList(pageNum)
