@@ -65,11 +65,13 @@ public class BoardController {
 //	}
 	
 	@GetMapping("/register")  //  WEB_INF/views/board/register.jsp
+	@PreAuthorize("isAuthenticated()")
 	public void register() {
 		
 	}
 	
 	@PostMapping("/register")
+	@PreAuthorize("isAuthenticated()")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("register......." + board);
 		boardService.register(board);
